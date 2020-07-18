@@ -1,0 +1,75 @@
+1) in this lecture we will create partial views, which we can use in different views without copying the same markup in all views
+2) we can write view once and use it in all.
+3) we will create two folders inside templates
+    a) views -> resides full views, which we are using via render
+    b) partial -> partial views which we use inside views
+
+4) to setup partials, we use hbs.registerpartials which takes one argument which is path where partials views are
+5) partials views does not consist of full html markup, instead they consist of exactly that html markup which we require to render
+   in other views
+        -> EXAMPLE
+            -> Header and Footer
+
+6) to use header in other pages we use below syntax
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <link rel="stylesheet" href="./css/style.css">
+        </head>
+        <body>
+            {{>header}} -> THIS IS THE CODE TO INCLUDE PARTIAL PAGE, BUT THINGS WONT WORK RIGHT NOW
+                        -> BECUASE NODEMON DONT RESTART WHEN WE ADD OR CHANGE VIEW (LIKE hbs or html)
+                        -> It only reload when we change something inside .js file
+                        -> to handle this we need to change NODEMON command
+                        -> nodemon src/app.js -e js,hbs (HERE -e stands for extension, and after the space we have to provide comma-separated extensions)
+            <h1>
+                {{helptitle}}
+            </h1>
+            <p>
+            {   {createdby}}
+            </p>
+        </body>
+    </html>
+
+7) to set the title of the current page in partial view, we have to set the same value in all pages as below 
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: 'about page of the App',
+        name: 'Sheikh Afham',
+    })
+
+})
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        helptitle: 'help page of webserver',
+        title: 'help page of the App',
+        name: 'Sheikh Afham',
+    })
+})
+
+above two app.get have same property name which is title.
+
+8) since partial view is inside the main view, it can also access the variable of the main view, because its part of main view
+   so when we set title using {{title}} at partial view it will automatically get the title from render method which is send to 
+   main view and then express will send it to hbs partial view.
+   we can also do the same for the footer. 
+
+9) we can use wild card character (*) to indicate that whenever a page is not found it comes to this route, which indicates
+   that the page is not found, so that we can setup 404.
+   EXAMPLE
+   app.get('/help/*', (req, res)=>{ -> this is for sub route, we can setup different 404 messages using different (*) path routes
+    res.render('pnf',{
+        title: '404',
+        contentnotfound: 'Help article not found',
+        name: 'Sheikh Afham Uddin'
+        })
+    })
+
+    app.get('*', (req, res)=>{ -> this is for root route which is not present
+        res.render('pnf',{
+            title: '404',
+            contentnotfound: 'Page not found',
+            name: 'Sheikh Afham Uddin'
+        })
+    })

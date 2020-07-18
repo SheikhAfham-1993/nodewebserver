@@ -1,0 +1,100 @@
+express in a framework used to build web application from node js
+
+1) first is to download from npm
+2) second to create a folder inside root directory name as src
+3) src holds all the node js files
+4) get express by using require
+5) express has only one method whic it exposes and that is express()
+6) after calling express, it will create application
+    Example
+        const express = require('express')
+        const app = express()
+7) now after creating app we can do our development by accessing the functionality from app variable
+8) when user wants to access our website, they basically wants to see our content. Either the content is abc.com 
+   or abc.com/help or abc.com/about
+9) its upto app to redirect the user to their requested page, i.e. to send a response when someone wants to access a route
+10) for this express has a method called app.get
+11) app.get will get the request of the user, and decide what a server should when someone tries to access some recourse
+    at some url or route.
+    May be we should be sending back HTML or may we should be sending back JSON
+12) it has 2 paramter, one is route, partial url which is the content after forward slash(/).
+    second is a function which describes what to return when user request the page.
+    this method parameter consist of two arguments.
+        a) first is an object, which contains the information about the current request that is made to the server
+           (called as req, short of request)
+        b) second is the response,which contains bunch of methods, allows us to customize what we are going to send back to the requester
+            1) res.send 
+                * send the response back to the requester
+                * if its access from the browser it will get the contents which is inside this send method
+                * if its access from some code it will get the contents of this send method (e.g. using npm request library)
+
+13) to run the server, we use app.listen
+    a) it has parameter, called as port
+    b) app.listen(3000)
+    c) other paramter is a callback function, which is called when server is up and running
+    d) process of starting server is asynchronous process.
+    
+
+14) 
+console.log(__dirname) // this will return the directory name
+console.log(__filename) // this will return the filename where it resides
+
+15)
+Here is all you need to know about relative file paths:
+
+Starting with / returns to the root directory and starts there
+
+Starting with ../ moves one directory backward and starts there
+
+Starting with ../../ moves two directories backward and starts there (and so on...)
+
+To move forward, just start with the first sub directory and keep moving forward.
+
+16) 
+const publicdirectorypath = path.join(__dirname, '../public') //path.join joins the path, we can also move level up or down with this
+app.use(express.static(publicdirectorypath)) // app.use is way to customize server
+// express.static is a function which takes the public static server, inside express.static we can add the static directory path
+// index.html has special meaning, when related to webservers. So when someone goes to root it, always index.html page will be open
+// express will redirect to index.html when root page is visited.
+// with this one line express will manage untill it find a route.
+// means that we done have to explicitly add the route as shown below for each page
+// app.get('/about', (req, res) => {
+//     res.send('<h1> This is an about title </h1>')
+// })
+
+// app.get('/weather', (req, res) => {
+//     const user_arg = process.argv.slice(2)[0]
+//     get_cityForecast_geo(user_arg, (error, response) => {
+//         if (error) {
+//             return console.log('Error', error)
+//         }
+//         res.send(response)
+//     })
+
+// })
+
+https://css-tricks.com/quick-reminder-about-file-paths/
+
+17)
+What does “/” , “./”, “../” represent while giving path?
+Root directory, current working directory, and parent directory, respectively.
+
+
+default paramters is ES6 feature 
+function = (name = 'default name')=>{
+
+}
+
+function('actualName') -> here it will use this provided name in the parameter
+function() -> here no parameter has been provided so it will use the default parameter
+
+function = (name, {location, stock = 0} = {})=>{ -> same with the object destructuring
+
+}
+
+function('actualName', product) -> here product is an object
+function('actualName') -> here no product is provided so the function will consider an empty default object defined in function
+                       -> if we want the default value of the property we set the default property of that.
+
+
+***we use heroku login to log our activity with our account so that we can manage our project inside visual studio code***

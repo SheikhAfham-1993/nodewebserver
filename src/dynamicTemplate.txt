@@ -1,0 +1,36 @@
+1) we will use handlebars
+2) it allows us to dynamically renders the documents as compare to static
+3) it also create code that we can re use across multiple pages
+4) previously we used res.send to send html contents and JSON object data
+5) here with hbs we will use res.renders
+6) render allow us to use the views. which we have set to node js to use the view engine
+7) it will handle our handlebars templates
+
+HOW TO INTEGRATE HANDLE BARS
+* install npm package
+* after const app = express()
+    * type app.use('view engine', 'hbs') -> all the characters must be in small case
+
+* then after it we can integrate handlebars functionality in our template using res.render and send our json object data to the template
+
+* in order to change the name of the view folder we will set the alternate using app.
+    app.set('views', viewDirectory) -> this will inform the express to see for template folder instead if view
+
+
+EXAMPLE
+
+app.get('', (req, res) => {
+    res.render('index', {
+        title: 'Weather App',
+        name: 'Sheikh Afham',
+    }) // we dont need to give full path, just name should be same. It will automatically goes to views folder
+
+})
+
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: 'About page of webserver',
+        createdby: 'Sheikh Afham',
+    }) // we dont need to give full path, just name should be same. It will automatically goes to views folder
+
+})
