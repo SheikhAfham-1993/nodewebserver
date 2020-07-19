@@ -11,6 +11,7 @@ const geoCode = require('./utils/geoLocation')
 
 // Express application initialization
 const app = express()
+const port = process.env.PORT || 3000
 
 // Setting up directory path
 const publicdirectorypath = path.join(__dirname, '../public')
@@ -129,6 +130,6 @@ const get_cityForecast_geo = (userarg, callback) => {
 // app.listen is responsible for starting the server
 // it is an asynchronous process
 
-app.listen(3000, () => {
-    console.log('Server is up and running')
+app.listen(port, () => {
+    console.log('Server is up and running at ' + port)
 })

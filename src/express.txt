@@ -98,3 +98,64 @@ function('actualName') -> here no product is provided so the function will consi
 
 
 ***we use heroku login to log our activity with our account so that we can manage our project inside visual studio code***
+
+
+GIT,
+
+untracked files
+
+ -> it will show all the files which are newly uploaded.
+ -> git add command will move the file from untracked files to staged changes
+    -> staged changes contains files which are going to commit in next commit
+
+ -> unstaged changes contain those files which are already commited before and being tracked by git.
+  -> if we made some changes in some files which we already committed it will be shown in unstaged changes
+
+-> to run git we have to initialize it first from the folder we want to track changes and use version control
+
+-> git status will tell us which files are staged, unstaged and untracked.
+-> if we want to ignore some files we have to make .gitignore file and insert that ignored files inside. 
+    then git will ignore that file.
+
+-> if we want to add file into staged area, we use git add nameofthefile
+-> if we want all of the file to be added we use shortcut git add .(dot)
+
+STEPS TO CREATE SSH KEY
+$ ssh-keygen -t rsa -b 4096 -C "afhamsh@gmail.com"
+$ eval ssh-agent -s
+$ ssh-agent bash
+$ ssh-add ~/.ssh/id_rsa
+
+
+To send our local repository to remote repository
+* First create a repository at github website under your account
+* now run this command to create an origin of your local repository. This means you are connecting your remote repository with local
+  repository 
+  -> git remote add origin https://github.com/SheikhAfham-1993/nodewebserver.git
+* then the next step is to bind the ssh key which we have created earlier, with our remote github so that we can securily 
+  send our files to the remote repository.
+  -> cat ~/.ssh/id_rsa.pub (Copy all the content and add it to Git SSH textbox)
+  -> to test if the SSH is successfull, write below command in gitbash
+    -> ssh -T git@github.com
+    -> the above command will ask for some authentication, type 'yes'
+* Then after type this below command to push the local repository code to Master (Origin)
+* git push -u origin master (here -u means upstream, means that where we want to push our content to, in this case origin)
+
+TO ADD our project at heroku
+* first we need to add ssh key to heroku
+ * type heroku keys:add at visual studio code terminal (this command will search for the key and add it to heroku)
+ * to create heroku application, we first create herouku application from root of our project which we want to deploy.
+  * heroku create nameoftheaplication -> beware that this name should be unique across all heroku applications globally
+  * this will return two links, first links will be the link of our weather application,
+  * Second one will the link of our heroku repository where we will push our code which needs to be deployed.
+
+* after creating heroku application, we need to do some changes in our project package.json file
+* i.e. we need to specify start page of our node js application which is app.js
+* so inside pacakge.json under scripts key, we add key value pair inside. key will be "start" and value will be node js command
+  i.e node src/app.js
+ -> "start":"node src/app.js"
+
+ * after that we need to change the app.listen command inside app.js, we have currently set it to 3000 for local purpose,
+   but now we have to set it for heroku 
+ * we use process.env.PORT
+
