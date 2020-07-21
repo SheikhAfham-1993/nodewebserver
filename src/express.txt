@@ -159,3 +159,8 @@ TO ADD our project at heroku
    but now we have to set it for heroku 
  * we use process.env.PORT
 
+ * and third is we have to set the api address for the weather calling scenario.
+  -> currently its bein set to local host which wont work in production.
+  -> so we remove the local host from start and leave the address from /weather/
+  -> this will automatically detect eithier we are in local or production.
+
